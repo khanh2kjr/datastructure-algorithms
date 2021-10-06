@@ -67,6 +67,56 @@ const createLinkedList = () => {
     return head
   }
 
+  const removeHead = () => {
+    if (head !== null) head = head.next
+
+    return head
+  }
+
+  const removeTail = () => {
+    if (head === null) return null
+
+    if (head.next === null) {
+      head = null
+
+      return head
+    }
+
+    let secondLast = head
+
+    while (secondLast.next.next !== null) {
+      secondLast = secondLast.next
+    }
+
+    secondLast.next = null
+
+    return head
+  }
+
+  const removeAtPosition = position => {
+    if (position <= 0 || head === null) {
+      removeHead()
+    } else if (position >= getSize()) {
+      removeTail()
+    } else if (getSize() === 1) {
+      head = null
+    } else {
+      let previous = head
+      let current = head
+      let index = 0
+
+      while (index < position && current.next !== null) {
+        previous = current
+        current = current.next
+        index++
+      }
+
+      previous.next = current.next
+    }
+
+    return head
+  }
+
   const findIndexByData = data => {
     if (head === null) return
 
@@ -129,6 +179,9 @@ const createLinkedList = () => {
     insertHead,
     insertTail,
     insertBeforePosition,
+    removeHead,
+    removeTail,
+    removeAtPosition,
     findIndexByData,
     getHead,
     getTail,
